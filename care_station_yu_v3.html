@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ケアステーションゆう｜居宅介護支援・訪問介護</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-dark:  #3d6b52;
+    --green-mid:   #5a8f72;
+    --green-med:   #74aa8a;
+    --green-light: #9ecfb0;
+    --green-pale:  #cce8d6;
+    --green-wash:  #f0f8f3;
+    --cream:       #faf8f3;
+    --cream-dark:  #ede9df;
+    --warm-white:  #fff9f4;
+    --text-dark:   #2d4a38;
+    --text-mid:    #527060;
+    --text-muted:  #8faa98;
+    --serif: 'Shippori Mincho', serif;
+    --sans:  'Zen Kaku Gothic New', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--text-dark); font-size: 15px; line-height: 1.8; }
+
+  /* HEADER */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,252,248,0.96); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px; border-bottom: 1px solid var(--cream-dark);
+  }
+  .logo-wrap { display: flex; flex-direction: column; }
+  .logo-en { font-size: 9px; letter-spacing: 0.22em; color: var(--green-med); font-weight: 300; margin-bottom: 2px; }
+  .logo-ja { font-family: var(--serif); font-size: 18px; color: var(--text-dark); font-weight: 500; letter-spacing: 0.08em; }
+  .logo-sub { font-size: 10px; color: var(--text-muted); letter-spacing: 0.05em; margin-top: 2px; font-weight: 300; }
+  nav { display: flex; gap: 22px; align-items: center; }
+  nav a { font-size: 12px; color: var(--text-mid); text-decoration: none; letter-spacing: 0.08em; font-weight: 300; transition: color 0.2s; }
+  nav a:hover { color: var(--green-dark); }
+  .nav-cta { background: var(--green-mid); color: #fff !important; padding: 8px 16px; border-radius: 20px; font-weight: 400 !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--green-dark) !important; }
+  .hamburger { display: none; background: none; border: 1px solid var(--cream-dark); border-radius: 6px; color: var(--text-dark); padding: 8px 12px; cursor: pointer; font-size: 16px; }
+
+  /* HERO */
+  .hero { background: var(--warm-white); min-height: 90vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 60px 64px 0; }
+  .hero-content { position: relative; z-index: 2; max-width: 500px; padding-bottom: 60px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--green-pale); color: var(--green-mid); font-size: 11px; padding: 5px 16px; border-radius: 20px; letter-spacing: 0.12em; margin-bottom: 24px; font-weight: 300; background: var(--green-wash); }
+  .hero h1 { font-family: var(--serif); font-size: clamp(24px, 3.5vw, 36px); color: var(--text-dark); line-height: 1.7; font-weight: 500; margin-bottom: 22px; letter-spacing: 0.06em; }
+  .hero-copy { font-size: 14px; color: var(--text-mid); line-height: 2.1; border-top: 1px solid var(--cream-dark); padding-top: 18px; margin-bottom: 32px; font-weight: 300; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn-primary { background: var(--green-mid); color: #fff; border: none; padding: 13px 26px; border-radius: 28px; font-size: 14px; font-weight: 400; cursor: pointer; text-decoration: none; display: inline-block; letter-spacing: 0.06em; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .hero-tel { display: flex; flex-direction: column; color: var(--text-dark); text-decoration: none; }
+  .hero-tel-label { font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; font-weight: 300; }
+  .hero-tel-num { font-family: var(--serif); font-size: 20px; color: var(--green-dark); letter-spacing: 0.08em; }
+  .hero-illust { position: absolute; right: 0; bottom: 0; width: 55%; max-width: 580px; z-index: 1; }
+
+  /* SECTIONS */
+  section { padding: 72px 64px; }
+  .sec-label { font-size: 10px; letter-spacing: 0.2em; color: var(--green-med); font-weight: 400; margin-bottom: 6px; }
+  .sec-title { font-family: var(--serif); font-size: clamp(20px, 2.8vw, 28px); color: var(--text-dark); font-weight: 500; margin-bottom: 36px; letter-spacing: 0.05em; }
+
+  /* SERVICES */
+  .services { background: #fff; }
+  .srv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+  .srv-card { background: var(--green-wash); border: 1px solid var(--green-pale); border-radius: 16px; padding: 26px 22px; transition: transform 0.2s, border-color 0.2s; }
+  .srv-card:hover { transform: translateY(-3px); border-color: var(--green-light); }
+  .srv-icon { width: 42px; height: 42px; background: var(--green-mid); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 20px; }
+  .srv-card h3 { font-family: var(--serif); font-size: 16px; color: var(--text-dark); margin-bottom: 8px; font-weight: 500; letter-spacing: 0.04em; }
+  .srv-card p { font-size: 13px; color: var(--text-mid); line-height: 1.85; font-weight: 300; }
+
+  /* ABOUT */
+  .about { background: var(--cream); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .about-text { font-size: 14px; color: var(--text-mid); line-height: 2.1; font-weight: 300; }
+  .about-quote { font-family: var(--serif); font-size: 17px; color: var(--green-dark); line-height: 1.9; border-left: 3px solid var(--green-light); padding-left: 18px; margin-bottom: 22px; letter-spacing: 0.03em; }
+  .nums-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .num-card { background: var(--green-wash); border: 1px solid var(--green-pale); border-radius: 14px; padding: 22px 26px; display: flex; align-items: center; gap: 20px; }
+  .num-big { font-family: var(--serif); font-size: 42px; color: var(--green-dark); font-weight: 500; line-height: 1; min-width: 70px; }
+  .num-big span { font-size: 16px; font-weight: 400; }
+  .num-role { font-size: 13px; color: var(--text-mid); letter-spacing: 0.06em; font-weight: 400; }
+  .num-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
+
+  /* FLOW */
+  .flow { background: #fff; }
+  .flow-list { display: flex; flex-direction: column; max-width: 640px; }
+  .flow-item { display: flex; gap: 22px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid var(--cream-dark); }
+  .flow-item:last-child { border-bottom: none; }
+  .flow-num { width: 34px; height: 34px; border-radius: 50%; background: var(--green-wash); border: 1.5px solid var(--green-light); color: var(--green-dark); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 3px; font-family: var(--serif); }
+  .flow-item h3 { font-family: var(--serif); font-size: 16px; color: var(--text-dark); margin-bottom: 5px; font-weight: 500; letter-spacing: 0.04em; }
+  .flow-item p { font-size: 13px; color: var(--text-mid); line-height: 1.9; font-weight: 300; }
+
+  /* FAQ */
+  .faq { background: var(--green-wash); }
+  .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 760px; }
+  .faq-item { background: #fff; border: 1px solid var(--green-pale); border-radius: 14px; overflow: hidden; }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none;
+    padding: 20px 24px; cursor: pointer;
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--serif); font-size: 15px; font-weight: 500;
+    color: var(--text-dark); letter-spacing: 0.03em;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: var(--green-wash); }
+  .faq-q-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--green-wash); border: 1px solid var(--green-pale); color: var(--green-mid); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--sans); }
+  .faq-arrow { margin-left: auto; font-size: 12px; color: var(--text-muted); transition: transform 0.2s; flex-shrink: 0; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 24px 20px 64px; font-size: 14px; color: var(--text-mid); line-height: 1.95; font-weight: 300; }
+  .faq-item.open .faq-a { display: block; }
+
+  /* GOOGLE PROFILE */
+  .gbp { background: #fff; }
+  .gbp-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .gbp-text p { font-size: 14px; color: var(--text-mid); line-height: 2.1; font-weight: 300; margin-bottom: 24px; }
+  .gbp-steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+  .gbp-step { display: flex; gap: 14px; align-items: flex-start; }
+  .gbp-step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--green-mid); color: #fff; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .gbp-step p { font-size: 13px; color: var(--text-mid); line-height: 1.8; font-weight: 300; margin: 0; }
+  .gbp-link { display: inline-flex; align-items: center; gap: 8px; background: #4285F4; color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 24px; font-size: 13px; font-weight: 400; letter-spacing: 0.05em; transition: opacity 0.2s; }
+  .gbp-link:hover { opacity: 0.88; }
+  .gbp-card {
+    background: var(--green-wash); border: 1px solid var(--green-pale);
+    border-radius: 20px; padding: 28px 24px;
+  }
+  .gbp-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .gbp-logo { width: 48px; height: 48px; border-radius: 12px; background: var(--green-mid); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .gbp-card-name { font-family: var(--serif); font-size: 15px; font-weight: 500; color: var(--text-dark); }
+  .gbp-card-sub { font-size: 12px; color: var(--text-muted); font-weight: 300; margin-top: 2px; }
+  .gbp-stars { color: #f4b400; font-size: 16px; letter-spacing: 2px; margin-bottom: 14px; }
+  .gbp-review { background: #fff; border-radius: 12px; padding: 14px 16px; font-size: 13px; color: var(--text-mid); line-height: 1.8; font-weight: 300; border: 1px solid var(--cream-dark); }
+  .gbp-review-name { font-size: 12px; color: var(--text-muted); margin-top: 10px; font-weight: 300; }
+  .gbp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .gbp-tag { background: #fff; border: 1px solid var(--green-pale); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--green-dark); font-weight: 300; }
+
+  /* ACCESS */
+  .access { background: var(--green-wash); }
+  .access-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .acc-list { display: flex; flex-direction: column; }
+  .acc-row { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--green-pale); align-items: flex-start; }
+  .acc-row:last-child { border-bottom: none; }
+  .acc-icon { font-size: 17px; color: var(--green-mid); margin-top: 2px; flex-shrink: 0; }
+  .acc-lbl { font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 3px; font-weight: 300; }
+  .acc-val { font-size: 14px; color: var(--text-dark); line-height: 1.7; }
+  .map-ph { background: #fff; border: 1px solid var(--green-pale); border-radius: 16px; height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); gap: 10px; font-size: 13px; font-weight: 300; }
+
+  /* CONTACT */
+  .contact { background: var(--cream); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .contact-note { font-size: 14px; color: var(--text-mid); line-height: 2.1; font-weight: 300; margin-bottom: 20px; }
+  .contact-tel-big { font-family: var(--serif); font-size: 28px; color: var(--green-dark); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .contact-hours { font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; font-weight: 300; }
+  .form { display: flex; flex-direction: column; gap: 14px; }
+  .form label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; display: block; margin-bottom: 5px; font-weight: 300; }
+  .form input, .form textarea, .form select { width: 100%; background: #fff; border: 1px solid var(--cream-dark); border-radius: 8px; padding: 11px 13px; font-size: 14px; color: var(--text-dark); font-family: var(--sans); font-weight: 300; outline: none; transition: border-color 0.2s; }
+  .form input:focus, .form textarea:focus, .form select:focus { border-color: var(--green-light); }
+  .form textarea { height: 96px; resize: vertical; }
+  .form-btn { background: var(--green-mid); color: #fff; border: none; border-radius: 28px; padding: 13px; font-size: 14px; font-weight: 400; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; font-family: var(--sans); }
+  .form-btn:hover { background: var(--green-dark); }
+
+  /* FOOTER */
+  footer { background: var(--green-dark); padding: 36px 64px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-logo { font-family: var(--serif); font-size: 16px; color: rgba(255,255,255,0.85); letter-spacing: 0.06em; }
+  .foot-info { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 2; font-weight: 300; text-align: center; }
+  .foot-copy { font-size: 11px; color: rgba(255,255,255,0.3); font-weight: 300; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    header { padding: 14px 20px; }
+    nav { display: none; }
+    nav.open { display: flex; flex-direction: column; position: absolute; top: 62px; left: 0; right: 0; background: var(--warm-white); padding: 20px; gap: 16px; z-index: 99; border-top: 1px solid var(--cream-dark); }
+    .hamburger { display: block; }
+    .hero { padding: 48px 24px 0; min-height: auto; flex-direction: column; }
+    .hero-illust { position: relative; width: 100%; max-width: 100%; margin-top: 24px; }
+    section { padding: 52px 24px; }
+    .about-inner, .access-inner, .contact-inner, .gbp-inner { grid-template-columns: 1fr; gap: 28px; }
+    footer { padding: 28px 24px; flex-direction: column; text-align: center; }
+    .faq-a { padding-left: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="top">
+  <div class="logo-wrap">
+    <span class="logo-en">CARE STATION YU</span>
+    <span class="logo-ja">ケアステーションゆう</span>
+    <span class="logo-sub">居宅介護支援事業所・訪問介護事業所</span>
+  </div>
+  <button class="hamburger" onclick="toggleNav()" aria-label="メニュー">&#9776;</button>
+  <nav id="main-nav">
+    <a href="#service">サービス</a>
+    <a href="#about">事業所紹介</a>
+    <a href="#faq">よくある質問</a>
+    <a href="#access">アクセス</a>
+    <a href="#contact" class="nav-cta">お問い合わせ</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <span class="hero-tag">🌿 熊本県阿蘇市内牧</span>
+    <h1>地域に根差した<br>きめ細かな支援を<br>心掛けています。</h1>
+    <p class="hero-copy">
+      自然豊かな阿蘇の地で、<br>
+      居宅介護支援とヘルパーが連携して<br>
+      あなたらしい暮らしをそっとサポートします。
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">お問い合わせ・ご相談</a>
+      <a href="tel:0967320307" class="hero-tel">
+        <span class="hero-tel-label">TEL（平日 8:30〜17:30）</span>
+        <span class="hero-tel-num">0967-32-0307</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-illust" aria-hidden="true">
+    <svg viewBox="0 0 580 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+      <rect width="580" height="420" fill="#f0f8f3"/>
+      <polygon points="60,280 160,120 260,280" fill="#c8e0cf" opacity="0.6"/>
+      <polygon points="140,280 260,100 390,280" fill="#b5d4be" opacity="0.7"/>
+      <polygon points="280,280 400,130 530,280" fill="#a8ccb4" opacity="0.65"/>
+      <ellipse cx="290" cy="340" rx="340" ry="110" fill="#cde8d5"/>
+      <ellipse cx="290" cy="360" rx="340" ry="90" fill="#b8ddc3"/>
+      <ellipse cx="290" cy="385" rx="340" ry="70" fill="#a2d3ae"/>
+      <rect x="0" y="370" width="580" height="50" fill="#8ec89b"/>
+      <rect x="72" y="310" width="8" height="60" fill="#6a9b7a" rx="2"/>
+      <ellipse cx="76" cy="300" rx="22" ry="26" fill="#7bb88a"/>
+      <ellipse cx="66" cy="312" rx="16" ry="18" fill="#8ecba0"/>
+      <ellipse cx="88" cy="308" rx="14" ry="16" fill="#74b383"/>
+      <rect x="490" y="318" width="8" height="52" fill="#6a9b7a" rx="2"/>
+      <ellipse cx="494" cy="308" rx="20" ry="24" fill="#7bb88a"/>
+      <ellipse cx="483" cy="320" rx="14" ry="16" fill="#8ecba0"/>
+      <ellipse cx="505" cy="316" rx="13" ry="15" fill="#74b383"/>
+      <ellipse cx="370" cy="355" rx="40" ry="22" fill="#f5f0e8"/>
+      <ellipse cx="405" cy="348" rx="18" ry="14" fill="#f5f0e8"/>
+      <ellipse cx="417" cy="352" rx="7" ry="5" fill="#e8ddd0"/>
+      <circle cx="415" cy="353" r="1.5" fill="#c4b5a5"/>
+      <circle cx="419" cy="353" r="1.5" fill="#c4b5a5"/>
+      <circle cx="409" cy="344" r="2" fill="#5a4a3a"/>
+      <ellipse cx="401" cy="337" rx="5" ry="7" fill="#f5f0e8" transform="rotate(-20,401,337)"/>
+      <ellipse cx="401" cy="337" rx="3" ry="5" fill="#e8c8c0" transform="rotate(-20,401,337)"/>
+      <path d="M 404 335 Q 400 325 394 324" stroke="#c8b89a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="338" y="372" width="8" height="20" fill="#e8ddd0" rx="3"/>
+      <rect x="352" y="373" width="8" height="19" fill="#e8ddd0" rx="3"/>
+      <rect x="367" y="373" width="8" height="19" fill="#e8ddd0" rx="3"/>
+      <rect x="381" y="372" width="8" height="20" fill="#e8ddd0" rx="3"/>
+      <path d="M 330 352 Q 315 345 318 358" stroke="#c8b89a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="355" cy="350" rx="12" ry="9" fill="#c8beb2" opacity="0.5"/>
+      <ellipse cx="200" cy="348" rx="22" ry="12" fill="#f0ece3"/>
+      <ellipse cx="220" cy="343" rx="10" ry="8" fill="#f0ece3"/>
+      <ellipse cx="229" cy="346" rx="4" ry="3" fill="#e4ddd4"/>
+      <circle cx="224" cy="340" r="1.2" fill="#5a4a3a"/>
+      <rect x="195" y="358" width="5" height="12" fill="#e0d9d0" rx="2"/>
+      <rect x="203" y="359" width="5" height="11" fill="#e0d9d0" rx="2"/>
+      <rect x="212" y="358" width="5" height="12" fill="#e0d9d0" rx="2"/>
+      <circle cx="130" cy="378" r="4" fill="#fff" opacity="0.9"/>
+      <circle cx="134" cy="374" r="3" fill="#fff" opacity="0.8"/>
+      <circle cx="126" cy="374" r="3" fill="#fff" opacity="0.8"/>
+      <circle cx="130" cy="370" r="3" fill="#fff" opacity="0.8"/>
+      <circle cx="130" cy="374" r="2.5" fill="#f9e8a0"/>
+      <circle cx="460" cy="380" r="4" fill="#fff" opacity="0.9"/>
+      <circle cx="464" cy="376" r="3" fill="#fff" opacity="0.8"/>
+      <circle cx="456" cy="376" r="3" fill="#fff" opacity="0.8"/>
+      <circle cx="460" cy="372" r="3" fill="#fff" opacity="0.8"/>
+      <circle cx="460" cy="376" r="2.5" fill="#f9e8a0"/>
+      <circle cx="155" cy="372" r="3.5" fill="#f4c2c2" opacity="0.85"/>
+      <circle cx="159" cy="368" r="2.8" fill="#f4c2c2" opacity="0.8"/>
+      <circle cx="151" cy="368" r="2.8" fill="#f4c2c2" opacity="0.8"/>
+      <circle cx="155" cy="368" r="2.2" fill="#f9e0a0"/>
+      <line x1="100" y1="385" x2="97" y2="368" stroke="#6aaa7a" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="105" y1="385" x2="108" y2="369" stroke="#6aaa7a" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="440" y1="385" x2="437" y2="370" stroke="#6aaa7a" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="445" y1="385" x2="448" y2="371" stroke="#6aaa7a" stroke-width="1.5" stroke-linecap="round"/>
+      <ellipse cx="120" cy="80" rx="50" ry="20" fill="#fff" opacity="0.75"/>
+      <ellipse cx="100" cy="85" rx="30" ry="18" fill="#fff" opacity="0.7"/>
+      <ellipse cx="145" cy="83" rx="35" ry="16" fill="#fff" opacity="0.7"/>
+      <ellipse cx="430" cy="60" rx="45" ry="18" fill="#fff" opacity="0.7"/>
+      <ellipse cx="412" cy="64" rx="28" ry="16" fill="#fff" opacity="0.65"/>
+      <ellipse cx="452" cy="63" rx="30" ry="14" fill="#fff" opacity="0.65"/>
+      <circle cx="500" cy="55" r="28" fill="#fef3c0" opacity="0.8"/>
+      <circle cx="500" cy="55" r="20" fill="#fde98a" opacity="0.9"/>
+    </svg>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="service">
+  <p class="sec-label">SERVICE</p>
+  <h2 class="sec-title">サービス内容</h2>
+  <div class="srv-grid">
+    <div class="srv-card">
+      <div class="srv-icon">📋</div>
+      <h3>居宅介護支援</h3>
+      <p>ケアマネジャー5名が、ご利用者・ご家族のご希望に寄り添いながら最適なケアプランを作成・調整します。</p>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">🏠</div>
+      <h3>訪問介護</h3>
+      <p>ヘルパー10名がご自宅へ伺い、食事・入浴・排泄などの身体介護や日常生活の援助をきめ細かくサポートします。</p>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">🤝</div>
+      <h3>関係機関との連携</h3>
+      <p>医療・福祉・行政など多様な関係機関とスムーズに連携し、総合的な支援体制を整えます。</p>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">💬</div>
+      <h3>相談・継続見直し</h3>
+      <p>状況の変化に柔軟に対応しながら、定期的な訪問と見直しで継続的にサポートします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="sec-label">ABOUT</p>
+  <h2 class="sec-title">事業所紹介</h2>
+  <div class="about-inner">
+    <div>
+      <p class="about-quote">地域に根差した<br>きめ細かな支援を<br>心掛けています。</p>
+      <p class="about-text">
+        阿蘇市内牧の自然に囲まれた落ち着いた場所にある、家庭的な雰囲気の事業所です。<br><br>
+        居宅介護支援事業所とヘルパー事業所が同じ建物にあり、ケアマネジャーとヘルパーが日ごろから顔を合わせながら連携して対応しています。<br><br>
+        小さな事業所だからこそできる、一人ひとりに寄り添った温かい支援を大切にしています。
+      </p>
+    </div>
+    <div class="nums-wrap">
+      <div class="num-card">
+        <div class="num-big">5<span>名</span></div>
+        <div>
+          <div class="num-role">ケアマネジャー</div>
+          <div class="num-note">主任ケアマネ在籍</div>
+        </div>
+      </div>
+      <div class="num-card">
+        <div class="num-big">10<span>名</span></div>
+        <div>
+          <div class="num-role">ヘルパースタッフ</div>
+          <div class="num-note">登録ヘルパー含む</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="flow" id="flow">
+  <p class="sec-label">FLOW</p>
+  <h2 class="sec-title">ご利用の流れ</h2>
+  <div class="flow-list">
+    <div class="flow-item">
+      <div class="flow-num">1</div>
+      <div>
+        <h3>お問い合わせ・ご相談</h3>
+        <p>お電話またはお問い合わせフォームからお気軽にご連絡ください。ご本人・ご家族どちらからのご相談も歓迎します。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">2</div>
+      <div>
+        <h3>訪問・アセスメント</h3>
+        <p>担当ケアマネジャーがご自宅を訪問し、現在の状況・ご要望・生活環境などを丁寧にお聞きします。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">3</div>
+      <div>
+        <h3>ケアプランの作成・説明</h3>
+        <p>アセスメントをもとに、ご本人・ご家族とともに最適なケアプランを作成します。内容はわかりやすく丁寧にご説明します。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">4</div>
+      <div>
+        <h3>サービス開始・定期見直し</h3>
+        <p>サービス開始後も定期的に訪問し、状況の変化に応じてプランを柔軟に見直しながら継続してサポートします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <p class="sec-label">FAQ</p>
+  <h2 class="sec-title">よくあるご質問</h2>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-icon">Q</span>
+        どんな人がサービスを利用できますか？
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">要介護・要支援の認定を受けた方がご利用いただけます。「介護が必要かもしれない」と感じたら、まずはお気軽にご相談ください。認定の申請方法もご案内します。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-icon">Q</span>
+        費用はどのくらいかかりますか？
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">居宅介護支援（ケアマネジャーによるプラン作成）は、利用者負担が無料です。訪問介護については介護保険が適用され、原則として費用の1〜3割のご負担となります。詳しくはお問い合わせください。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-icon">Q</span>
+        急にお願いすることはできますか？
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">はい、できる限り柔軟に対応いたします。急な状況の変化やご相談も、まずはお電話にてご連絡ください。状況をお聞きした上で、最善の対応をご提案します。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-icon">Q</span>
+        ケアマネジャーは自分で選べますか？
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">はい、ご利用者がケアマネジャーを自由に選ぶことができます。当事業所のケアマネジャーの中から、ご希望やご状況に合った担当者をご相談の上お決めいただけます。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-icon">Q</span>
+        他の事業所からの変更（転居）は可能ですか？
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">はい、可能です。現在他の事業所をご利用中の方でも、担当ケアマネジャーの変更は手続きをすることでいつでも可能です。引き継ぎの手続きもスムーズに行えるようサポートいたします。</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-icon">Q</span>
+        土日や夜間の対応はできますか？
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">通常の営業時間は平日8:30〜17:30となっております。緊急のご連絡については、担当ケアマネジャーへ直接ご連絡いただける体制を整えています。詳細はご契約時にご説明いたします。</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GOOGLE BUSINESS PROFILE -->
+<section class="gbp" id="gbp">
+  <p class="sec-label">GOOGLE BUSINESS PROFILE</p>
+  <h2 class="sec-title">Googleビジネスプロフィールのご案内</h2>
+  <div class="gbp-inner">
+    <div class="gbp-text">
+      <p>Googleマップに事業所情報を登録すると、「阿蘇 ケアマネ」「内牧 訪問介護」などで検索したときに地図上に表示されるようになります。<strong style="color:var(--text-dark);font-weight:500;">無料で登録でき、地域の方への認知度アップに非常に効果的です。</strong></p>
+      <div class="gbp-steps">
+        <div class="gbp-step">
+          <div class="gbp-step-num">1</div>
+          <p>Googleアカウントでログインし、「Googleビジネスプロフィール」にアクセス</p>
+        </div>
+        <div class="gbp-step">
+          <div class="gbp-step-num">2</div>
+          <p>事業所名・住所・電話番号・営業時間などを入力</p>
+        </div>
+        <div class="gbp-step">
+          <div class="gbp-step-num">3</div>
+          <p>ハガキまたは電話で本人確認を完了（1〜2週間程度）</p>
+        </div>
+        <div class="gbp-step">
+          <div class="gbp-step-num">4</div>
+          <p>写真や説明文を追加して完成！地図に表示されるようになります</p>
+        </div>
+      </div>
+      <a href="https://business.google.com" target="_blank" rel="noopener" class="gbp-link">
+        🔍 Googleビジネスプロフィールを登録する
+      </a>
+    </div>
+    <div>
+      <div class="gbp-card">
+        <div class="gbp-card-header">
+          <div class="gbp-logo">🏡</div>
+          <div>
+            <div class="gbp-card-name">ケアステーションゆう</div>
+            <div class="gbp-card-sub">居宅介護支援事業所・訪問介護</div>
+          </div>
+        </div>
+        <div class="gbp-stars">★★★★★ <span style="font-size:13px;color:var(--text-muted);font-weight:300;">（イメージ）</span></div>
+        <div class="gbp-review">
+          「スタッフの方がとても親切で、いつも丁寧に対応してくださいます。阿蘇の自然の中にある落ち着いた雰囲気の事業所です。」
+          <div class="gbp-review-name">— 利用者ご家族（イメージ）</div>
+        </div>
+        <div class="gbp-tags">
+          <span class="gbp-tag">🌿 阿蘇市内牧</span>
+          <span class="gbp-tag">📋 居宅介護支援</span>
+          <span class="gbp-tag">🏠 訪問介護</span>
+          <span class="gbp-tag">🕐 平日 8:30〜17:30</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section class="access" id="access">
+  <p class="sec-label">ACCESS</p>
+  <h2 class="sec-title">アクセス</h2>
+  <div class="access-inner">
+    <div class="acc-list">
+      <div class="acc-row">
+        <span class="acc-icon">📍</span>
+        <div>
+          <div class="acc-lbl">住所</div>
+          <div class="acc-val">〒869-2301<br>熊本県阿蘇市内牧1214-32</div>
+        </div>
+      </div>
+      <div class="acc-row">
+        <span class="acc-icon">📞</span>
+        <div>
+          <div class="acc-lbl">電話番号</div>
+          <div class="acc-val"><a href="tel:0967320307" style="color:inherit;text-decoration:none;">0967-32-0307</a></div>
+        </div>
+      </div>
+      <div class="acc-row">
+        <span class="acc-icon">📠</span>
+        <div>
+          <div class="acc-lbl">FAX</div>
+          <div class="acc-val">0967-32-0308</div>
+        </div>
+      </div>
+      <div class="acc-row">
+        <span class="acc-icon">🕐</span>
+        <div>
+          <div class="acc-lbl">営業時間</div>
+          <div class="acc-val">平日 8:30〜17:30<br><span style="font-size:12px;color:var(--text-muted);">土日祝はお休みです</span></div>
+        </div>
+      </div>
+      <div class="acc-row">
+        <span class="acc-icon">🚗</span>
+        <div>
+          <div class="acc-lbl">駐車場</div>
+          <div class="acc-val">あり（無料）</div>
+        </div>
+      </div>
+    </div>
+    <div class="map-ph">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green-med)" stroke-width="1.5" aria-hidden="true">
+        <circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+      </svg>
+      Googleマップを埋め込み予定<br>
+      <span style="font-size:11px;">実際のHPでは地図が表示されます</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="sec-label">CONTACT</p>
+  <h2 class="sec-title">お問い合わせ</h2>
+  <div class="contact-inner">
+    <div>
+      <p class="contact-note">
+        介護のこと、サービスのこと、<br>
+        どんな小さなことでもお気軽にご相談ください。<br><br>
+        まずはお電話でも受け付けています。
+      </p>
+      <div class="contact-tel-big">0967-32-0307</div>
+      <p class="contact-hours">平日 8:30〜17:30</p>
+    </div>
+    <form class="form" onsubmit="handleSubmit(event)">
+      <div>
+        <label>お名前</label>
+        <input type="text" placeholder="例：山田 花子" required />
+      </div>
+      <div>
+        <label>電話番号</label>
+        <input type="tel" placeholder="例：090-0000-0000" />
+      </div>
+      <div>
+        <label>お問い合わせ内容</label>
+        <select>
+          <option>サービスについて聞きたい</option>
+          <option>ケアプランの相談</option>
+          <option>訪問介護について</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div>
+        <label>メッセージ（任意）</label>
+        <textarea placeholder="ご自由にお書きください"></textarea>
+      </div>
+      <button type="submit" class="form-btn">送信する</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">ケアステーションゆう</div>
+  <div class="foot-info">
+    〒869-2301 熊本県阿蘇市内牧1214-32<br>
+    TEL：0967-32-0307　FAX：0967-32-0308　営業時間：平日 8:30〜17:30
+  </div>
+  <div class="foot-copy">© 2025 ケアステーションゆう</div>
+</footer>
+
+<script>
+function toggleNav() {
+  document.getElementById('main-nav').classList.toggle('open');
+}
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('main-nav').classList.remove('open'));
+});
+function handleSubmit(e) {
+  e.preventDefault();
+  alert('送信が完了しました。\nお問い合わせありがとうございます。\n（デモのため実際には送信されません）');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
